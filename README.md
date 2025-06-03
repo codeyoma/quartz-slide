@@ -1,7 +1,8 @@
 # Quartz-Slide
 - It’s a custom plugin that enables slide in [Quartz 4](https://quartz.jzhao.xyz/).
   - built using [remark](https://github.com/gnab/remark).
-- [demo](https://yoma.kr/z-index/Guideline?slide=true)
+- [demo slide](https://yoma.kr/z-index/Guideline?slide=true)
+  - [origin content](https://yoma.kr/z-index/Guideline)
 - Slides are divided based on `<h>` tags or `<hr>` elements.
 
 <br/>
