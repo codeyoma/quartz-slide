@@ -112,8 +112,7 @@ function appendRemark(option: SlideOptions) {
   const style = document.createElement("style")
   style.textContent = `
   .remark-slide-content {
-    overflow: auto !important;
-    max-height: 100vh;
+    background-color: var(--light);
 
     h1,
     h2,
@@ -124,7 +123,7 @@ function appendRemark(option: SlideOptions) {
       position: sticky;
       top: 0;
       z-index: 1;
-      background-color: rgba(255, 255, 255, 0.8);
+      // background-color: rgba(255, 255, 255, 0.8);
       backdrop-filter: blur(8px);
     }
 
