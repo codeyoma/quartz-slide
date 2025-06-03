@@ -36,6 +36,17 @@
   - `f` : Toggle Fullscreen
   - `t` : Reset presentation timer
   - `<number> + <Return>` : Jump to slide `<number>`
+- Presenter Notes
+  - To add presenter notes to a slide, insert a line with three question marks (`???`) between the slide content and the notes.
+    -	Everything before `???` will appear on the slide.
+    - Everything after `???` will be shown only as presenter notes.
+  -
+    ```
+    # Header
+    Slide content
+    ???
+    Presenter Notes
+    ```
 
 <br/>
 
