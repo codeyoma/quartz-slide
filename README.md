@@ -12,9 +12,9 @@
   |Parameter|Type|Default|Description|
   |:---|:---|:---|:---|
   |slide|boolean|`false`| If `start=true` is set, the slide starts automatically|
-  |ratio|string|`16:9`|Enable scroll navigation|
-  |scroll|boolean|`false`|Enable touch navigation|
-  |touch|boolean|`true`|Enable click-based navigation|
+  |ratio|string|`16:9`|Slide aspect ratio `16:9` or `4:3`|
+  |scroll|boolean|`false`|Enable mouse scroll navigation|
+  |touch|boolean|`true`|Enable touch navigation|
   |click|boolean|`false`|Enable click-based navigation|
   |startOnChange|boolean|`true`|Auto-start timer on slide change|
   |resetable|boolean|`true`|Allow timer reset|
@@ -22,9 +22,20 @@
   |includePresenterNotes|boolean|`true`|Display presenter notes in the slide view|
   - [https://yoma.kr/?slide=true](https://yoma.kr/?slide=true)
   - [https://yoma.kr/?slide=true&scroll=true](https://yoma.kr/?slide=true&scroll=true)
+- [Keyboard shortcuts](https://github.com/gnab/remark/wiki/Keyboard-shortcuts)
+  - All of these shortcuts can also be seen during a presentation by pressing `H` or `?`
+  - `h` or `?` : Toggle the help window
+  - `j` : Jump to next slide
+  - `k` : Jump to previous slide
+  - `b` : Toggle blackout mode
+  - `m` : Toggle mirrored mode.
+  - `c` : Create a clone presentation on a new window
+  - `p` : Toggle PresenterMode
+  - `f` : Toggle Fullscreen
+  - `t` : Reset presentation timer
+  - `<number> + <Return>` : Jump to slide `<number>`
 
 <br/>
-
 
 # Installation
 - You must complete all of the following steps for it to work.
@@ -51,6 +62,7 @@ export{
 <br/>
 
 ## 3. Edit `quartz.layout.ts`
+
 ```ts
 export const defaultContentPageLayout: PageLayout = {
 // or export const defaultListPageLayout: PageLayout = {
