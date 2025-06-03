@@ -4,6 +4,8 @@
 - [demo](https://yoma.kr/z-index/Guideline)
 - Slides are divided based on `<h>` tags or `<hr>` elements.
 
+<br/>
+
 ## Supported Features
 - Runtime Slide
   - Press `cmd / ctrl` + `s`
