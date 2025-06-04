@@ -11,8 +11,8 @@
     top: 0;
     z-index: 1;
     background-color: color-mix(in srgb, var(--light) 80%, transparent);
+    -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(5px);
     margin-top: 0;
     margin-bottom: 0;
     padding-top: 2.0rem;

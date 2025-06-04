@@ -64,6 +64,9 @@ function renderMermaidInSlide() {
   })
 }
 
+function anchorBlank(html: string): string {
+  return html.replace(/<a\b([^>]*?)>/g, '<a $1 target="_blank">')
+}
 
 function unwrapSlideNote(html: string): string {
   return html.replace(/<p>(\?{3}[\s\S]*?)<\/p>/g, (_, content) => content)
@@ -106,7 +109,15 @@ function appendRemark(option: SlideOptions) {
   }
 
   const body = document.querySelector(".center article")?.innerHTML
-  const data = unwrapSlideNote(unwrapFootnotesSection(collapseSeparators(injectSeparators(header + tags + body))))
+  const data = anchorBlank(
+    unwrapSlideNote(
+      unwrapFootnotesSection(
+        collapseSeparators(
+          injectSeparators(header + tags + body)
+        )
+      )
+    )
+  )
   document.body.innerHTML = ""
 
   const script = document.createElement("script")
