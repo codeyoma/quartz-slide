@@ -9,8 +9,8 @@
 
 ## Supported Features
 - Runtime Slide
-  - Press `cmd / ctrl` + `s`
-  - Click the slide icon button
+  - Toggle slide - Press `cmd / ctrl` + `s`
+  - Start slide - Click the slide icon button
 - URL Parameters Options
   |Parameter|Type|Default|Description|
   |:---|:---|:---|:---|
