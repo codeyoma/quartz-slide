@@ -78,7 +78,15 @@ export{
 
 <br/>
 
-## 3. Edit `quartz.layout.ts`
+## 3. Edit `quartz/components/scripts/popover.inline.ts`
+- Add this at the end of the file
+```ts
+export { mouseEnterHandler, clearActivePopover }
+```
+
+<br/>
+
+## 4. Edit `quartz.layout.ts`
 
 ```ts
 export const defaultContentPageLayout: PageLayout = {

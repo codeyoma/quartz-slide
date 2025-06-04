@@ -1,3 +1,9 @@
+.remark-slide-scaler {
+  // -webkit-font-smoothing: antialiased;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
 .remark-slide-container .remark-slide-content {
   background-color: var(--light);
 

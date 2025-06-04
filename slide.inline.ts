@@ -1,4 +1,19 @@
+import { mouseEnterHandler, clearActivePopover } from './popover.inline'
 import { SlideOptions } from '../Slide'
+
+function renderPopoverInSlide() {
+  const mindmapLinks = document.querySelectorAll(".remark-slide-content a.internal") as NodeListOf<HTMLAnchorElement>
+  for (const link of mindmapLinks) {
+    if (link.dataset.noPopover === "true") continue
+
+    link.addEventListener("mouseenter", mouseEnterHandler)
+    link.addEventListener("mouseleave", clearActivePopover)
+    window.addCleanup?.(() => {
+      link.removeEventListener("mouseenter", mouseEnterHandler)
+      link.removeEventListener("mouseleave", clearActivePopover)
+    })
+  }
+}
 
 function decodeHTMLEntities(html: string): string {
   const txt = document.createElement("textarea")
@@ -129,7 +144,10 @@ function appendRemark(option: SlideOptions) {
       ...option,
       source: data,
     },
-      renderMermaidInSlide()
+      () => {
+        renderMermaidInSlide()
+        renderPopoverInSlide()
+      }
     )
   }
   document.body.appendChild(script)
