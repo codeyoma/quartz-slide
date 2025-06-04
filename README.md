@@ -57,9 +57,12 @@
 <br/>
 
 ## 1. Add files
-- `Slide.tsx` -> `quartz/components`
-- `slide.inline.ts` -> `quartz/components/scripts`
+- `Slide.tsx` -> `quartz/components/Slide.tsx`
+- `slide.inline.ts` -> `quartz/components/scripts/slide.inline.ts`
 - `slide.js` -> `quartz/static/scripts/slide.js`
+- `slide.scss` -> `quartz/components/styles/slide.scss`
+- `slide-custom.scss` -> `quartz/styles/custom.scss`
+  - Instead of replacing or moving the file, the contents must be pasted into `custom.scss`
 
 <br/>
 

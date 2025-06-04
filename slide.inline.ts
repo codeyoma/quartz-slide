@@ -109,56 +109,9 @@ function appendRemark(option: SlideOptions) {
   const data = unwrapSlideNote(unwrapFootnotesSection(collapseSeparators(injectSeparators(header + tags + body))))
   document.body.innerHTML = ""
 
-  const style = document.createElement("style")
-  style.textContent = `
-  .remark-slide-content {
-    background-color: var(--light);
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      // background-color: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(8px);
-    }
-
-    h1 {
-      color: var(--primary);
-    }
-
-    .tags {
-      gap: .6rem;
-    }
-
-    li {
-      line-height: 2;
-      list-style-type: disc;
-    }
-
-    p {
-      margin: 0;
-    }
-
-    .remark-slide-number{
-    }
-
-    pre {
-      padding: 0;
-    }
-  }
-
-  `
-
-  document.head.appendChild(style)
-
   const script = document.createElement("script")
-  // script.src = `${window.location.origin}/static/scripts/remark.js`
-  script.src = `https://codeyoma.github.io/static/scripts/remark.js`
+  script.src = `${window.location.origin}/static/scripts/slide.js`
+  // script.src = `https://codeyoma.github.io/static/scripts/remark.js`
 
   script.onload = () => {
     remark.create({
