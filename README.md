@@ -11,6 +11,8 @@
 - Runtime Slide
   - Toggle slide - Press `cmd / ctrl` + `s`
   - Start slide - Click the slide icon button
+- Footnote Anchors
+  - Navigate to the correct slide when clicked
 - URL Parameters Options
   |Parameter|Type|Default|Description|
   |:---|:---|:---|:---|
