@@ -3733,7 +3733,7 @@ function(hljs){
 
   // общий паттерн для определения идентификаторов
   var UNDERSCORE_IDENT_RE = '[A-Za-zА-Яа-яёЁ_][A-Za-zА-Яа-яёЁ_0-9]+';
-
+  
   // v7 уникальные ключевые слова, отсутствующие в v8 ==> keyword
   var v7_keywords =
   'далее ';
@@ -3745,7 +3745,7 @@ function(hljs){
 
   // keyword : ключевые слова
   var KEYWORD = v7_keywords + v8_keywords;
-
+  
   // v7 уникальные директивы, отсутствующие в v8 ==> meta-keyword
   var v7_meta_keywords =
   'загрузитьизфайла ';
@@ -3762,7 +3762,7 @@ function(hljs){
   // v7 системные константы ==> built_in
   var v7_system_constants =
   'разделительстраниц разделительстрок символтабуляции ';
-
+  
   // v7 уникальные методы глобального контекста, отсутствующие в v8 ==> built_in
   var v7_global_context_methods =
   'ansitooem oemtoansi ввестивидсубконто ввестиперечисление ввестипериод ввестиплансчетов выбранныйплансчетов ' +
@@ -3776,7 +3776,7 @@ function(hljs){
   'префиксавтонумерации пропись пустоезначение разм разобратьпозициюдокумента рассчитатьрегистрына ' +
   'рассчитатьрегистрыпо симв создатьобъект статусвозврата стрколичествострок сформироватьпозициюдокумента ' +
   'счетпокоду текущеевремя типзначения типзначениястр установитьтана установитьтапо фиксшаблон шаблон ';
-
+  
   // v8 методы глобального контекста ==> built_in
   var v8_global_context_methods =
   'acos asin atan base64значение base64строка cos exp log log10 pow sin sqrt tan xmlзначение xmlстрока ' +
@@ -3871,7 +3871,7 @@ function(hljs){
   v7_system_constants +
   v7_global_context_methods + v8_global_context_methods +
   v8_global_context_property;
-
+  
   // v8 системные наборы значений ==> class
   var v8_system_sets_of_values =
   'webцвета windowsцвета windowsшрифты библиотекакартинок рамкистиля символы цветастиля шрифтыстиля ';
@@ -4023,7 +4023,7 @@ function(hljs){
   'кодировкаименфайловвzipфайле методсжатияzip методшифрованияzip режимвосстановленияпутейфайловzip режимобработкиподкаталоговzip ' +
   'режимсохраненияпутейzip уровеньсжатияzip ';
 
-  // v8 системные перечисления -
+  // v8 системные перечисления - 
   // Блокировка данных, Фоновые задания, Автоматизированное тестирование,
   // Доставляемые уведомления, Встроенные покупки, Интернет, Работа с двоичными данными ==> class
   var v8_system_enums_other =
@@ -4142,7 +4142,7 @@ function(hljs){
 
   // literal : примитивные типы
   var LITERAL = 'null истина ложь неопределено';
-
+  
   // number : числа
   var NUMBERS = hljs.inherit(hljs.NUMBER_MODE);
 
@@ -4163,10 +4163,10 @@ function(hljs){
       }
     ]
   };
-
+  
   // comment : комментарии
   var COMMENTS = hljs.inherit(hljs.C_LINE_COMMENT_MODE);
-
+  
   // meta : инструкции препроцессора, директивы компиляции
   var META = {
     className: 'meta',
@@ -4177,13 +4177,13 @@ function(hljs){
       COMMENTS
     ]
   };
-
+  
   // symbol : метка goto
   var SYMBOL = {
     className: 'symbol',
     begin: '~', end: ';|:', excludeEnd: true
-  };
-
+  };  
+  
   // function : объявление процедур и функций
   var FUNCTION = {
     className: 'function',
@@ -4235,7 +4235,7 @@ function(hljs){
       NUMBERS,
       STRINGS,
       DATE
-    ]
+    ]  
   }
 }},{name:"abnf",create:/*
 Language: Augmented Backus-Naur Form
@@ -5643,7 +5643,7 @@ function(hljs) {
         ]
       },
       {
-        className: 'meta',
+        className: 'meta', 
         begin: '^\\s*#\\w+', end:'$',
         relevance: 0
       },
@@ -28385,40 +28385,40 @@ function highlightCodeBlocks (content, slideshow) {
       highlightInline = slideshow.getHighlightInlineCode(),
       meta;
 
-  codeBlocks.forEach(function (block) {
-    if (block.className === '') {
-      block.className = slideshow.getHighlightLanguage();
-    }
+  // codeBlocks.forEach(function (block) {
+  //   if (block.className === '') {
+  //     block.className = slideshow.getHighlightLanguage();
+  //   }
 
-    if (block.parentElement.tagName !== 'PRE') {
-      utils.addClass(block, 'remark-inline-code');
-      if (highlightInline) {
-        highlighter.engine.highlightBlock(block, '');
-      }
-      return;
-    }
+  //   if (block.parentElement.tagName !== 'PRE') {
+  //     utils.addClass(block, 'remark-inline-code');
+  //     if (highlightInline) {
+  //       highlighter.engine.highlightBlock(block, '');
+  //     }
+  //     return;
+  //   }
 
-    if (highlightLines) {
-      meta = extractMetadata(block);
-    }
+  //   if (highlightLines) {
+  //     meta = extractMetadata(block);
+  //   }
 
-    if (block.className !== '') {
-      highlighter.engine.highlightBlock(block, '  ');
-    }
+  //   if (block.className !== '') {
+  //     highlighter.engine.highlightBlock(block, '  ');
+  //   }
 
-    wrapLines(block);
+  //   wrapLines(block);
 
-    if (highlightLines) {
-      highlightBlockLines(block, meta.highlightedLines);
-    }
+  //   if (highlightLines) {
+  //     highlightBlockLines(block, meta.highlightedLines);
+  //   }
 
-    if (highlightSpans) {
-      // highlightSpans is either true or a RegExp
-      highlightBlockSpans(block, highlightSpans);
-    }
+  //   if (highlightSpans) {
+  //     // highlightSpans is either true or a RegExp
+  //     highlightBlockSpans(block, highlightSpans);
+  //   }
 
-    utils.addClass(block, 'remark-code');
-  });
+  //   utils.addClass(block, 'remark-code');
+  // });
 }
 
 function extractMetadata (block) {
@@ -28487,6 +28487,7 @@ function highlightBlockSpans (block, highlightSpans) {
       });
   });
 }
+
 },{"../components/slide-number/slide-number":"components/slide-number","../converter":13,"../highlighter":15,"../utils":25}],28:[function(require,module,exports){
 var SlideView = require('./slideView')
   , Timer = require('../components/timer/timer')
