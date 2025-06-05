@@ -3,7 +3,7 @@
   - built using [remark](https://github.com/gnab/remark).
 - [demo slide](https://yoma.kr/z-index/Guideline?slide=true)
   - [origin content](https://yoma.kr/z-index/Guideline)
-- Slides are divided based on `<h>` tags or `<hr>` elements.
+- Slides are divided based on Markdown headings (`# to ######`, corresponding to `<h1>–<h6>`) or horizontal rules (`---`, corresponding to `<hr>`)
 
 <br/>
 
