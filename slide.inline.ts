@@ -119,7 +119,9 @@ function renderMermaidInSlide() {
 
 
 function anchorBlank(html: string): string {
-  return html.replace(/<a\b([^>]*?)>/g, '<a $1 target="_blank">')
+  // return html.replace(/<a\b([^>]*?)>/g, '<a $1 target="_blank">')
+  // return html.replace(/(?<!<sup>)<a\b([^>]*?)>/g, '<a $1 target="_blank">')
+  return html
 }
 
 function unwrapSlideNote(html: string): string {
@@ -133,11 +135,7 @@ function unwrapFootnotesSection(html: string): string {
   )
 }
 
-function collapseSeparators(input: string): string {
-  return input.replace(/(?:\n*\s*---\s*\n*){2,}/g, '\n---\n')
-}
-
-function injectSeparators(html: string, separator = "\n---\n"): string {
+function injectSeparators(html: string, separator: string): string {
   let firstHeadingInjected = false
 
   return html
@@ -152,6 +150,45 @@ function injectSeparators(html: string, separator = "\n---\n"): string {
     })
 }
 
+function handleFootnote(data: string, separator: string) {
+  const slides = data.split(separator)
+  const refIndexMap = new Map<string, number>()
+
+  slides.forEach((slide, index) => {
+    const regex = /<sup><a [^>]*?id="(user-content-fnref[^"]+)"/g
+
+    let match
+    while ((match = regex.exec(slide)) !== null) {
+      const id = match[1]
+      refIndexMap.set(`#${id}`, index + 1)
+    }
+
+    const hrefRegex = /<sup><a href="(#user-content-fn[^"]+)"/g
+    slide = slide.replace(hrefRegex, () => {
+      return `<sup><a href="${window.location.pathname}#${slides.length}"`
+    })
+
+    // const refRegex = /<sup><a\s+[^>]*?href="([^"]+)"[^>]*?id="user-content-fnref-([\d-]+)"[^>]*?>.*?<\/a><\/sup>/g
+    // slide = slide.replace(refRegex, (_, href, refText) => {
+    //   return `<sup><a href="${window.location.pathname}#${slides.length}">${refText}</a></sup>`
+    // })
+
+    slides[index] = slide
+  })
+
+  slides[slides.length - 1] = slides[slides.length - 1].replace(
+    /<a\s+([^>]*?)href="(#user-content-fn[^"]+)"([^>]*)>/g,
+    (fullMatch, beforeHref, href, afterHref) => {
+      if (refIndexMap.has(href)) {
+        return `<a ${beforeHref}href="${window.location.pathname}#${refIndexMap.get(href)}"${afterHref}>`
+      }
+      return fullMatch
+    }
+  )
+
+  return slides.join("\n---\n")
+}
+
 function appendRemark(option: SlideOptions) {
 
   const header = `${document.querySelector(".page-header h1.article-title")?.outerHTML}`
@@ -161,14 +198,18 @@ function appendRemark(option: SlideOptions) {
     console.warn("No header found in the document. Cannot render slide.")
     return;
   }
+  const separator = "\n---\n<div id=\"inject-slide\"></div>";
 
   const body = document.querySelector(".center article")?.innerHTML
+
+  // sorry callback hell
   const data =
     anchorBlank(
       unwrapSlideNote(
         unwrapFootnotesSection(
-          collapseSeparators(
-            injectSeparators(header + tags + body)
+          handleFootnote(
+            injectSeparators(header + tags + body, separator),
+            separator
           )
         )
       )

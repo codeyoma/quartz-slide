@@ -34,7 +34,6 @@
 
   li {
     line-height: 1.8;
-    list-style-type: disc;
     list-style-position: outside;
 
     img,
@@ -65,10 +64,6 @@
     }
   }
 
-  .remark-code {
-    padding: 7px;
-  }
-
   img {
     margin: 0 0;
   }
@@ -79,7 +74,15 @@
     margin: 10px 0;
   }
 
-  .callout-title .callout-icon {
-    margin: auto 0;
+  .callout {
+    padding-bottom: 0.8rem;
+
+    .callout-title {
+      padding-bottom: 0.2rem;
+
+      .callout-icon {
+        margin: auto 0;
+      }
+    }
   }
 }
