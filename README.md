@@ -13,6 +13,7 @@
   - Start slide - Click the slide icon button
 - Footnote Anchors
   - Navigate to the correct slide when clicked
+  - Only works when `enableSPA: false` in `quart.config.ts`
 - URL Parameters Options
   |Parameter|Type|Default|Description|
   |:---|:---|:---|:---|
