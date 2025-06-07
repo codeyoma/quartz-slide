@@ -4,7 +4,7 @@
   will-change: transform;
 }
 
-.remark-slide-container .remark-slide-content {
+.remark-slide-content {
   background-color: var(--light);
 
   h1,
@@ -19,9 +19,7 @@
     background-color: color-mix(in srgb, var(--light) 80%, transparent);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 2.0rem;
+    padding-top: 1.5rem;
   }
 
   h1 {
@@ -51,7 +49,7 @@
   }
 
   p {
-    margin: 0;
+    line-height: 1.8;
   }
 
   .remark-slide-number {}
@@ -61,6 +59,7 @@
 
     code {
       padding: .5rem;
+      font-size: large;
     }
   }
 
