@@ -166,13 +166,7 @@ function handleFootnote(data: string, separator: string) {
     const hrefRegex = /<sup><a href="(#user-content-fn[^"]+)"/g
     slide = slide.replace(hrefRegex, () => {
       return `<sup><a href="#${slides.length}"`
-      // return `<sup><a href="${window.location.pathname}${window.location.search}#${slides.length}"`
     })
-
-    // const refRegex = /<sup><a\s+[^>]*?href="([^"]+)"[^>]*?id="user-content-fnref-([\d-]+)"[^>]*?>.*?<\/a><\/sup>/g
-    // slide = slide.replace(refRegex, (_, href, refText) => {
-    //   return `<sup><a href="${window.location.pathname}#${slides.length}">${refText}</a></sup>`
-    // })
 
     slides[index] = slide
   })
@@ -182,7 +176,6 @@ function handleFootnote(data: string, separator: string) {
     (fullMatch, beforeHref, href, afterHref) => {
       if (refIndexMap.has(href)) {
         return `<a ${beforeHref}href="#${refIndexMap.get(href)}"${afterHref}>`
-        // return `<a ${beforeHref}href="${window.location.pathname}${window.location.search}#${refIndexMap.get(href)}"${afterHref}>`
       }
       return fullMatch
     }
