@@ -187,7 +187,7 @@ function handleFootnote(data: string, separator: string) {
 function handleIndex(data: string, separator: string, option: SlideOptions, index: string) {
   const slides = data.split(separator)
 
-  if (!option.index) return slides.join(separator);
+  if (!option.index || !index) return slides.join(separator);
   slides.splice(1, 0, index)
 
   const indexMap = new Map<string, number>()
@@ -230,6 +230,8 @@ function makeIndex() {
 
   const headers = document.querySelectorAll('article.popover-hint h1[id]');
   const index = Array.from(headers).map(head => `<li><a data-href="${head.textContent}" class="">${head.textContent}</a></li>`).join('')
+
+  if (!index) return ""
 
   return `
     <h1 class="slide-index-title">Index</h1>
