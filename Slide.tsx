@@ -18,6 +18,8 @@ export interface SlideOptions {
     enabled: boolean,
   },
   includePresenterNotes: boolean,
+  tags: boolean,
+  index: boolean
 }
 
 const defaultOptions: SlideOptions = {
@@ -33,6 +35,8 @@ const defaultOptions: SlideOptions = {
     enabled: true,
   },
   includePresenterNotes: true,
+  tags: true,
+  index: true,
 }
 
 export default ((opts?: Partial<SlideOptions>) => {

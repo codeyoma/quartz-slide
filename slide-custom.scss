@@ -7,6 +7,13 @@
 .remark-slide-content {
   background-color: var(--light);
 
+  &:first-of-type {
+    padding: 0rem 4rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
   h1,
   h2,
   h3,
@@ -32,9 +39,27 @@
   //   }
   // }
 
+  .slide-index-list {
+    font-size: x-large;
+    margin: 0 auto;
+    margin-top: 1rem;
+  }
+
+  .slide-index-title {
+    display: grid;
+    justify-content: center;
+
+    &:before {
+      content: ""
+    }
+  }
+
   .article-title {
     display: grid;
     justify-content: center;
+    margin: 0;
+    padding: 0;
+    flex-grow: 1;
 
     &:before {
       content: ""

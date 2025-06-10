@@ -181,7 +181,62 @@ function handleFootnote(data: string, separator: string) {
     }
   )
 
+  return slides.join(separator)
+}
+
+function handleIndex(data: string, separator: string, option: SlideOptions, index: string) {
+  const slides = data.split(separator)
+
+  if (!option.index) return slides.join("\n---\n");
+  slides.splice(1, 0, index)
+
+  const indexMap = new Map<string, number>()
+  const regex = /<h1[^>]*id="[^"]*"[^>]*>(.*?)<\/h1>/g;
+  const tempDiv = document.createElement('div');
+
+  slides.forEach((slide, index) => {
+    let match
+    while ((match = regex.exec(slide)) !== null) {
+      const fullH1Html = match[0];
+      tempDiv.innerHTML = fullH1Html;
+      const h1Element = tempDiv.querySelector('h1');
+
+      if (h1Element && h1Element.firstChild) {
+        const content = h1Element.firstChild.textContent?.trim();
+
+        if (content) {
+          indexMap.set(content, index + 1);
+        }
+      }
+    }
+  })
+
+  if (slides.length > 2) {
+    slides[1] = slides[1].replace(
+      /<a\s+([^>]*?)data-href="([^"]*)" ([^>]*)>/g,
+      (fullMatch, beforeHref, dataHref, afterHref) => {
+        if (indexMap.has(dataHref)) {
+          return `<a ${beforeHref}href="#${indexMap.get(dataHref)}"${afterHref}>`
+        }
+        return fullMatch
+      }
+    )
+  }
+
   return slides.join("\n---\n")
+}
+
+function makeIndex() {
+
+  const headers = document.querySelectorAll('article.popover-hint h1[id]');
+  const index = Array.from(headers).map(head => `<li><a data-href="${head.textContent}" class="">${head.textContent}</a></li>`).join('')
+
+  return `
+    <h1 class="slide-index-title">Index</h1>
+    <ul class="slide-index-list" >
+      ${index}
+    </ul>
+  `
 }
 
 function appendRemark(option: SlideOptions) {
@@ -202,9 +257,12 @@ function appendRemark(option: SlideOptions) {
     anchorBlank(
       unwrapSlideNote(
         unwrapFootnotesSection(
-          handleFootnote(
-            injectSeparators(header + tags + body, separator),
-            separator
+          handleIndex(
+            handleFootnote(
+              injectSeparators(header + (option.tags ? tags : "") + body, separator),
+              separator
+            ),
+            separator, option, makeIndex()
           )
         )
       )
@@ -256,6 +314,8 @@ function paramOption(defaultOption: SlideOptions) {
       enabled: getBool("enabled", defaultOption.timer.enabled),
     },
     includePresenterNotes: getBool("includePresenterNotes", defaultOption.includePresenterNotes),
+    tags: getBool("tags", defaultOption.tags),
+    index: getBool("index", defaultOption.index),
   } as SlideOptions)
 }
 

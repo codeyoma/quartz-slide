@@ -14,6 +14,7 @@
 - Footnote Anchors
   - Navigate to the correct slide when clicked
   - Only works when `enableSPA: false` in `quart.config.ts`
+- Automatic Index Generation
 - URL Parameters Options
   |Parameter|Type|Default|Description|
   |:---|:---|:---|:---|
@@ -26,6 +27,8 @@
   |resetable|boolean|`true`|Allow timer reset|
   |enabled|boolean|`true`|Enable slide timer|
   |includePresenterNotes|boolean|`true`|Display presenter notes in the slide view|
+  |tags|boolean|`true`|Display tags on the cover slide|
+  |index|boolean|`true`|Displays the Table of Contents for the document on the second slide|
   - [https://yoma.kr/?slide=true](https://yoma.kr/?slide=true)
   - [https://yoma.kr/?slide=true&scroll=true](https://yoma.kr/?slide=true&scroll=true)
 - [Keyboard shortcuts](https://github.com/gnab/remark/wiki/Keyboard-shortcuts)
