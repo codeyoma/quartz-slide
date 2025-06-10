@@ -181,13 +181,13 @@ function handleFootnote(data: string, separator: string) {
     }
   )
 
-  return slides.join(separator)
+  return slides.join("\n---\n")
 }
 
 function handleIndex(data: string, separator: string, option: SlideOptions, index: string) {
   const slides = data.split(separator)
 
-  if (!option.index) return slides.join("\n---\n");
+  if (!option.index) return slides.join(separator);
   slides.splice(1, 0, index)
 
   const indexMap = new Map<string, number>()
@@ -223,7 +223,7 @@ function handleIndex(data: string, separator: string, option: SlideOptions, inde
     )
   }
 
-  return slides.join("\n---\n")
+  return slides.join(separator)
 }
 
 function makeIndex() {
@@ -257,13 +257,15 @@ function appendRemark(option: SlideOptions) {
     anchorBlank(
       unwrapSlideNote(
         unwrapFootnotesSection(
-          handleIndex(
-            handleFootnote(
+          handleFootnote(
+            handleIndex(
               injectSeparators(header + (option.tags ? tags : "") + body, separator),
-              separator
+              separator,
+              option,
+              makeIndex()
             ),
-            separator, option, makeIndex()
-          )
+            separator
+          ),
         )
       )
     )
