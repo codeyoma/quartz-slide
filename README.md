@@ -126,6 +126,9 @@ Component.Slide({
     enabled: boolean,             // default true
   },
   includePresenterNotes: boolean, // default true
+  tags: boolean,                  // default true
+  index: boolean,                 // default true
+  align: "left" | "center"        // default left
 }),
 ```
 
