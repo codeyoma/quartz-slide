@@ -19,7 +19,8 @@ export interface SlideOptions {
   },
   includePresenterNotes: boolean,
   tags: boolean,
-  index: boolean
+  index: boolean,
+  align: "left" | "center"
 }
 
 const defaultOptions: SlideOptions = {
@@ -37,6 +38,7 @@ const defaultOptions: SlideOptions = {
   includePresenterNotes: true,
   tags: true,
   index: true,
+  align: "left"
 }
 
 export default ((opts?: Partial<SlideOptions>) => {

@@ -241,6 +241,41 @@ function makeIndex() {
   `
 }
 
+function appendCSS(option: SlideOptions) {
+  if (document.getElementById("slide-align-style")) return
+
+  if (option.align === "center") {
+    const styleElement = document.createElement("style")
+    styleElement.id = "slide-align-style";
+
+    styleElement.textContent = `
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  justify-content: center;
+}
+
+.remark-slide-content > *:not(.remark-slide-number) {
+  align-self: center;
+  max-width: 100%
+}
+
+.remark-slide-content *:has(video),
+.remark-slide-content *:has(audio),
+.remark-slide-content *:has(iframe) {
+  width: 100%;
+  max-width: 95%;
+}
+
+`;
+
+    document.head.appendChild(styleElement)
+  }
+}
+
 function appendRemark(option: SlideOptions) {
 
   const header = `${document.querySelector(".page-header h1.article-title")?.outerHTML}`
@@ -291,6 +326,7 @@ function appendRemark(option: SlideOptions) {
     )
   }
   document.body.appendChild(script)
+  appendCSS(option)
 }
 
 function paramOption(defaultOption: SlideOptions) {
@@ -299,8 +335,15 @@ function paramOption(defaultOption: SlideOptions) {
   const getBool = (key: string, fallback = false) =>
     params.has(key) ? params.get(key)?.toLowerCase() === "true" : fallback
 
-  const ratioParam = params.get("ratio")
-  const ratio = ratioParam === "4:3" ? "4:3" : "16:9"
+  type Ratio = SlideOptions["ratio"]
+  const validRatios: Ratio[] = ["4:3", "16:9"];
+  const requestedRatio = params.get("ratio");
+  const ratio: Ratio = validRatios.includes(requestedRatio as Ratio) ? requestedRatio as Ratio : defaultOption.ratio;
+
+  type Align = SlideOptions["align"]
+  const validAlign: Align[] = ["left", "center"];
+  const requestedAlign = params.get("align");
+  const align: Align = validAlign.includes(requestedAlign as Align) ? requestedAlign as Align : defaultOption.align;
 
   return ({
     ...defaultOption,
@@ -320,6 +363,7 @@ function paramOption(defaultOption: SlideOptions) {
     includePresenterNotes: getBool("includePresenterNotes", defaultOption.includePresenterNotes),
     tags: getBool("tags", defaultOption.tags),
     index: getBool("index", defaultOption.index),
+    align
   } as SlideOptions)
 }
 
