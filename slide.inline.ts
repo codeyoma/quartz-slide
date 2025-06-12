@@ -118,6 +118,25 @@ function renderMermaidInSlide() {
 }
 
 
+function enableYouTubeJSAPI(html: string): string {
+  return html.replace(/<iframe[^>]*?>/gi, (iframeTag) => {
+    const srcMatch = iframeTag.match(/src=["']([^"']+)["']/i);
+    if (!srcMatch) return iframeTag;
+
+    const src = srcMatch[1];
+
+    if (!src.includes("youtube.com/embed")) return iframeTag;
+    if (src.includes("enablejsapi=1")) return iframeTag;
+
+    const newSrc = src.includes("?")
+      ? `${src}&enablejsapi=1`
+      : `${src}?enablejsapi=1`;
+
+    const updatedTag = iframeTag.replace(src, newSrc);
+    return updatedTag;
+  });
+}
+
 function anchorBlank(html: string): string {
   // return html.replace(/<a\b([^>]*?)>/g, '<a $1 target="_blank">')
   // return html.replace(/(?<!<sup>)<a\b([^>]*?)>/g, '<a $1 target="_blank">')
@@ -289,23 +308,18 @@ function appendRemark(option: SlideOptions) {
 
   const body = document.querySelector(".center article")?.innerHTML
 
-  // sorry callback hell
-  const data =
-    anchorBlank(
-      unwrapSlideNote(
-        unwrapFootnotesSection(
-          handleFootnote(
-            handleIndex(
-              injectSeparators(header + (option.tags ? tags : "") + body, separator),
-              separator,
-              option,
-              makeIndex()
-            ),
-            separator
-          ),
-        )
-      )
-    )
+  const pipe = <T>(value: T, ...fns: ((val: T) => T)[]): T =>
+    fns.reduce((acc, fn) => fn(acc), value);
+
+  const data = pipe(
+    injectSeparators(header + (option.tags ? tags : "") + body, separator),
+    (d) => handleIndex(d, separator, option, makeIndex()),
+    (d) => handleFootnote(d, separator),
+    unwrapFootnotesSection,
+    unwrapSlideNote,
+    enableYouTubeJSAPI,
+    anchorBlank
+  );
 
   document.body.innerHTML = ""
 
@@ -332,8 +346,10 @@ function appendRemark(option: SlideOptions) {
 function paramOption(defaultOption: SlideOptions) {
   const params = new URLSearchParams(window.location.search)
 
-  const getBool = (key: string, fallback = false) =>
-    params.has(key) ? params.get(key)?.toLowerCase() === "true" : fallback
+  const getBool = (key: string, fallback = false) => {
+    const value = params.get(key)?.toLowerCase();
+    return value === "true" ? true : value === "false" ? false : fallback;
+  };
 
   type Ratio = SlideOptions["ratio"]
   const validRatios: Ratio[] = ["4:3", "16:9"];
